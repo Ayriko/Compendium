@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compendium</title>
+  <link rel="icon" href="/assets/favicon.ico">
+</head>
+
+<link rel="stylesheet" href="./assets/stylelog.css">
+<form class="login-form" action="/login" method="post">
+  <p class="login-text">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lock fa-stack-1x"></i>
+    </span>
+  </p>
+  <input type="text" class="login-username" autofocus="true" required placeholder="Nom d'utilisateur" name="username"
+    autocomplete="off" />
+  <input type="password" class="login-password" required placeholder="Mot de passe" name="password"
+    autocomplete="off" />
+  <input type="submit" name="Login" value="Login" class="login-submit" />
+</form>
+<div class="underlay-photo"></div>
+<div class="underlay-black"></div>
+{{template "footer.html"}}

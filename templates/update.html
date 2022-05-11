@@ -1,0 +1,100 @@
+{{template "header.html" .}}
+<section class="section">
+    <div style="padding-left: 3vh; padding-right: 3vh;">
+        <div class="field">
+            {{ if eq .Origin 1}}
+            <form action="/saveC" class="form" method="POST">
+                {{ else if eq .Origin 2}}
+                <form action="/saveW" class="form" method="POST">
+                    {{ else if eq .Origin 3}}
+                    <form action="/saveL" class="form" method="POST">
+                        {{else if eq .Origin 4}}
+                        <form action="/saveP" class="form" method="POST">
+                            {{ end }}
+        </div>
+        <div class="field">
+            <label class="label">Titre</label>
+            <div class="control">
+                <label for="Titre">Modifier le titre</label>
+                <input type="text" name="name">
+                <p>Précédent (copier-coller si vous souhaitez le conserver) :</p>
+                {{ if eq .Origin 1}}
+                    {{ range .Campaign}}
+                        {{ .Title}}
+                    {{ end }}
+                {{ else if eq .Origin 2}}
+                    {{ range .World}}
+                        {{ .Title }}
+                    {{ end }}
+                {{ else if eq .Origin 3}}
+                    {{ range .Lore }}
+                        {{ .Title }}
+                    {{ end }}
+                {{else if eq .Origin 4}}
+                    {{ range .Characters}}
+                        {{ .Name }}
+                    {{ end }}
+                {{ end }}
+                </input>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Contenu</label>
+            <div class="control">
+                <textarea placeholder="Modifier le contenu ici" name="content" required class="textarea"
+                    style="position:relative; width: 95%; height: 250px; resize: none;">
+                    {{ if eq .Origin 1}}
+                        {{ range .Campaign}}
+                            {{ .Description}}
+                        {{ end }}
+                    {{ else if eq .Origin 2}}
+                        {{ range .World}}
+                            {{ .Content }}
+                        {{ end }}
+                    {{ else if eq .Origin 3}}
+                        {{ range .Lore }}
+                            {{ .Content }}
+                        {{ end }}
+                    {{else if eq .Origin 4}}
+                        {{ range .Characters}}
+                            {{ .Content }}
+                        {{ end }}
+                    {{ end }}
+                </textarea>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label for="image">Ajouter/Modifier une image ? (Saisir son url)</label>
+                <input type="url" id="image" name="image">
+                <p>Précédent (copier-coller si vous souhaitez le conserver) :</p>
+                {{ if eq .Origin 1}}
+                    {{ range .Campaign}}
+                        {{ .Image}}
+                    {{ end }}
+                {{ else if eq .Origin 2}}
+                    {{ range .World}}
+                        {{ .Image }}
+                    {{ end }}
+                {{ else if eq .Origin 3}}
+                    {{ range .Lore }}
+                        {{ .Image }}
+                    {{ end }}
+                {{else if eq .Origin 4}}
+                    {{ range .Characters}}
+                        {{ .Image }}
+                    {{ end }}
+                {{ end }}
+                </input>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <input type="hidden" name="id" value="{{ .Id }}">
+                <button type="submit" class="button">Enregistrer</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</section>
+{{template "footer.html"}}

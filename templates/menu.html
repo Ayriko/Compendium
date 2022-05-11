@@ -1,0 +1,126 @@
+{{define "menu.html"}}
+<aside class="menu" style="background-color: whitesmoke ;padding: 10px;">
+  <p class="menu-label">
+    Les campagnes de Jeu
+  </p>
+  <ul class="menu-list">
+    <li><a class="js-modal-trigger" data-target="modal-js-example">
+        Créer une nouvelle campagne
+      </a></li>
+    <li><a class="js-modal-trigger" data-target="modal-liste">Liste des campagnes</a></li>
+  </ul>
+</aside>
+
+<div id="modal-js-example" class="modal">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box">
+      <form action="/campaign" method="post" autocomplete="off">
+        <div class="field">
+          <label class="label">Nom de la campagne</label>
+          <div class="control">
+            <input class="input" type="text" name="name" placeholder="Saisir le nom de la campagne" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Image</label>
+          <div class="control">
+            <input class="input" type="text" name="img" placeholder="Saisir l'url d'une image">
+          </div>
+        </div>
+        
+        <div class="field">
+          <label class="label">Description</label>
+          <div class="control">
+            <textarea class="textarea" name="desc" placeholder="Saisir une description"></textarea>
+          </div>
+        </div>
+        
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-link">Enregistrer</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+<div id="modal-liste" class="modal">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box">
+      {{ range .Campaigns}}
+        <Label><strong>{{ .Title }}</strong></Label>
+        <br>
+        <form action="/update/{{ .Id }}" method="get">
+          <div class="control">
+            <button class="button is-success">Modifier</button>
+          </div>
+        </form>
+        <form action="/delete/{{ .Id }}" method="get">
+        <div class="control">
+          <button class="button is-danger">Supprimer</button>
+        </div>
+      </form>
+        <br>
+        {{ end }}
+    </div>
+  </div>
+
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Functions to open and close a modal
+    function openModal($el) {
+      $el.classList.add('is-active');
+    }
+
+    function closeModal($el) {
+      $el.classList.remove('is-active');
+    }
+
+    function closeAllModals() {
+      (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+        closeModal($modal);
+      });
+    }
+
+    // Add a click event on buttons to open a specific modal
+    (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+      const modal = $trigger.dataset.target;
+      const $target = document.getElementById(modal);
+
+      $trigger.addEventListener('click', () => {
+        openModal($target);
+      });
+    });
+
+    // Add a click event on various child elements to close the parent modal
+    (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+      const $target = $close.closest('.modal');
+
+      $close.addEventListener('click', () => {
+        closeModal($target);
+      });
+    });
+
+    // Add a keyboard event to close all modals
+    document.addEventListener('keydown', (event) => {
+      const e = event || window.event;
+
+      if (e.keyCode === 27) { // Escape key
+        closeAllModals();
+      }
+    });
+  });
+</script>
+
+{{end}}

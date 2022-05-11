@@ -1,0 +1,17 @@
+{{template "header.html" .}}
+<section class="section">
+    <div class="container">
+        <h1 class="title">
+            {{ .Title }}
+          </h1>
+        <div class="columns">
+            <div class="column is-one-third">{{template "menuC.html" .}}</div>
+            <div class="column is-two-thirds">
+                <figure class="">
+                    <img src={{ .Img }}>
+                  </figure>
+            </div>
+        </div>
+    </div>
+</section>
+{{template "footer.html"}}

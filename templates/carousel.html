@@ -1,0 +1,28 @@
+{{define "carousel.html" }}
+<section class="section" style="padding: 0%">
+    <div class="container">
+        <!-- Start Carousel -->
+        <div id="carousel-demo" class="carousel" style="background-color: whitesmoke; padding: 10px; overflow: hidden">
+            {{ range .Campaigns}}
+            <div class="item-{{ .Id }}">
+                <a href="/enter/{{ .Id }}">
+                    <figure class="image is-5by4">
+                        <img src={{ .Image}}>
+                    </figure>
+                </a>
+                <div>
+                    <p>{{ .Title }}</p>
+                </div>
+                <article class="message is-dark">
+                    <div class="message-body">
+                        {{ .Description }}
+                    </div>
+                </article>
+                <!-- Slide Content -->
+            </div>
+            {{end}}
+        </div>
+        <!-- End Carousel -->
+    </div>
+</section>
+{{ end }}
