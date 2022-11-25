@@ -37,7 +37,7 @@ func main() {
 	private.Use(middleware.AuthRequired) //permet de vérifier si un utilisateur est connecté avant de servir les routes privées
 	routes.PrivateRoutes(private)
 
-	router.Run() //8080 port par défaut
+	router.Run(":8080") //8080 port par défaut
 }
 
 func CheckErr(err error) {
